@@ -1,0 +1,49 @@
+{
+    // 全部用 ${workspaceFolder} 相对路径，没有任何机器相关的绝对路径。
+    // build\<Config>\ 是自包含的（Qt、platforms、WebEngine、ISTAR、libUI*、config、
+    // re 的 libUIRE_*.dll 都在 exe 旁），所以调试器直接启动 exe 即可，不需要配环境变量。
+    //
+    // preLaunchTask 用 per-exe 的那条任务（只构建这个 exe 的 target）：
+    // 否则 F5 第二个配置时会去重链另一个正在运行的 exe，报 LNK1168 并让本次启动失败。
+    //
+    // .vscode\qt5.natvis 是 Qt 官方那份 natvis（MIT），
+    // 用 visualizerFile 挂给 cppvsdbg，调试时 QString/QList/QHash 这类
+    // Qt 类型在监视窗口里能直接读，不用再展开内部结构。
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GUI_WM (Debug)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/GUI_WM.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/Debug",
+            "console": "integratedTerminal",
+            "visualizerFile": "${workspaceFolder}/.vscode/qt5.natvis",
+            "showDisplayString": true,
+            "preLaunchTask": "build: GUI_WM (debug)"
+        },
+        {
+            "name": "GUI_WM (Release)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Release/GUI_WM.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/Release",
+            "console": "integratedTerminal",
+            "visualizerFile": "${workspaceFolder}/.vscode/qt5.natvis",
+            "showDisplayString": true,
+            "preLaunchTask": "build: GUI_WM (release)"
+        },
+        {
+            "name": "Attach to GUI_WM",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "processId": "${command:pickProcess}",
+            "visualizerFile": "${workspaceFolder}/.vscode/qt5.natvis",
+            "showDisplayString": true
+        }
+    ]
+}

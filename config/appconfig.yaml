@@ -1,0 +1,8 @@
+appconfig:
+  appDataPath: C:/App_Data_2006A/
+  appDataPath_Backup: D:/App_Data_2006A/
+  naviPanelLeft: false
+  language: 1
+  BrokerServerAdd:
+    IP: 127.0.0.1
+    port: 1883

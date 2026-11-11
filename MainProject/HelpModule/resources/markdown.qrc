@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new">
+        <file>index.html</file>
+        <file>markdown.css</file>
+        <file>marked.min.js</file>
+        <file>qwebchannel.js</file>
+    </qresource>
+</RCC>

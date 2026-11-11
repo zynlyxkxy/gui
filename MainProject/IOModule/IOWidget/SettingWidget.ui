@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingWidget</class>
+ <widget class="QWidget" name="SettingWidget">
+  <property name="minimumSize"><size><width>350</width><height>0</height></size></property>
+  <property name="maximumSize"><size><width>16777215</width><height>50</height></size></property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin"><number>10</number></property>
+   <property name="topMargin"><number>0</number></property>
+   <property name="rightMargin"><number>10</number></property>
+   <property name="bottomMargin"><number>0</number></property>
+   <property name="horizontalSpacing"><number>4</number></property>
+   <property name="verticalSpacing"><number>0</number></property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="lbl_Index">
+     <property name="minimumSize"><size><width>50</width><height>0</height></size></property>
+     <property name="maximumSize"><size><width>50</width><height>16777215</height></size></property>
+     <property name="font"><font><family>Times New Roman</family><pointsize>12</pointsize></font></property>
+     <property name="text"><string/></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="lbl_Name">
+     <property name="font"><font><family>Times New Roman</family><pointsize>12</pointsize></font></property>
+     <property name="text"><string/></property>
+     <property name="alignment"><set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set></property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QDoubleSpinBox" name="spb_FloatValue">
+     <property name="minimumSize"><size><width>100</width><height>0</height></size></property>
+     <property name="maximumSize"><size><width>120</width><height>16777215</height></size></property>
+     <property name="font"><font><family>Times New Roman</family><pointsize>12</pointsize></font></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+     <property name="buttonSymbols"><enum>QAbstractSpinBox::NoButtons</enum></property>
+     <property name="decimals"><number>9</number></property>
+     <property name="minimum"><double>-9000000000.000000000</double></property>
+     <property name="maximum"><double>9000000000.000000000</double></property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QPushButton" name="btn_BoolToggle">
+     <property name="minimumSize"><size><width>25</width><height>25</height></size></property>
+     <property name="maximumSize"><size><width>30</width><height>30</height></size></property>
+     <property name="text"><string/></property>
+     <property name="checkable"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QLabel" name="lbl_BoolText">
+     <property name="text"><string>Off</string></property>
+     <property name="alignment"><set>Qt::AlignCenter</set></property>
+    </widget>
+   </item>
+   <item row="0" column="5">
+    <widget class="QPushButton" name="btn_SetValue">
+     <property name="minimumSize"><size><width>45</width><height>45</height></size></property>
+     <property name="maximumSize"><size><width>45</width><height>45</height></size></property>
+     <property name="font"><font><family>Times New Roman</family><pointsize>12</pointsize></font></property>
+     <property name="text"><string>Set</string></property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="6">
+    <widget class="QFrame" name="frame">
+     <property name="minimumSize"><size><width>0</width><height>2</height></size></property>
+     <property name="maximumSize"><size><width>16777215</width><height>2</height></size></property>
+     <property name="styleSheet"><string notr="true">QFrame{border: 1px solid #BBBBBB;}</string></property>
+     <property name="frameShape"><enum>QFrame::StyledPanel</enum></property>
+     <property name="frameShadow"><enum>QFrame::Raised</enum></property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+</ui>

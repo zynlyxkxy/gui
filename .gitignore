@@ -1,0 +1,58 @@
+# ============================================================
+#  预编译依赖 —— 不进仓库（单个 dll 可达 100 MB+，超过 GitHub 单文件上限）
+#  用 Release 里的 deps 包解压还原，见 MANIFEST.md
+# ============================================================
+/basiclibrary_output/
+/platform_output/
+
+# 构建产物
+/build/
+/build_*/
+/output/
+/bin/
+/out/
+/cmake-build-*/
+
+# 编辑器 / 工具个人配置
+*.user
+.vs/
+.idea/
+.claude/
+
+# 日志 / 中间物
+/Log*
+*.log
+*.obj
+*.pdb
+*.ilk
+*.exp
+
+# ---- 以下是原内网 .gitignore 的其余规则 ----
+# IDE 鐨勪釜浜洪厤缃?
+# 锛?vscode/ 涓嶅啀蹇界暐锛氶噷闈㈢殑 settings/tasks/launch/extensions 鏄洟闃熷叡鐢ㄧ殑鏋勫缓鍏ュ彛锛?
+#   涓?module/io銆乵odule/motion 涓€鑷达紱鏈哄櫒鐩稿叧鐨?.vscode/c_cpp_properties.json 宸插垹闄わ紝
+#   IntelliSense 鏀圭敱 CMake Tools 浠?CMakePresets 鎻愪緵锛?
+.idea/
+*.user
+# Claude Code
+.claude/
+# Build output锛堟柊娴佺▼锛歜uild/ 鏄?CMake 鏋勫缓鏍戯紝output/ 鏄儴缃插舰鐘讹級
+/build/
+/output/
+interface/
+cmake-build-*/
+bin/
+out/
+# 鏃ф祦绋嬪洖鍐欏湪婧愮爜鏍戦噷鐨?RPC 鐢熸垚鐗╋紙鏂版祦绋嬪彧钀?build/gen/锛屼笅闈㈠嚑鏉″彧涓哄巻鍙插伐浣滃尯鍏滃簳锛?
+MainProject/RPCModule/lib/
+MainProject/RPCModule/include/*_client.h
+MainProject/RPCModule/include/*_server.h
+MainProject/RPCModule/include/*_define.h
+# MSVC
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.log
+# Test
+testtools

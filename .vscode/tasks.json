@@ -1,0 +1,96 @@
+{
+    // 只调 scripts\ 下的脚本，没有绝对路径。
+    // _SCRIPT_NO_HOLD=1 让脚本不要停在"请按任意键继续"，否则任务会挂住。
+    //
+    // "build: <exe> (debug/release)" 这几个任务带 -t，只构建那一个 target：
+    // 调试时按 F5 另一个配置，如果 preLaunchTask 去构建**全部** target，就会
+    // 重链正在运行的那个 exe，报 LNK1168 并导致这次启动被掐掉。
+    // launch.json 里每个配置用各自的那条任务。
+    // 注意：target 名是 GUI（产物名才是 GUI_WM.exe），-t 必须写 target 名。
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build: release",
+            "type": "shell",
+            "command": "scripts\\build-release.bat",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            "label": "build: debug",
+            "type": "shell",
+            "command": "scripts\\build-debug.bat",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            // per-exe：只构建 GUI_WM.exe 这一个 target（target 名是 GUI）。
+            // launch.json 的 "GUI_WM (Debug)" 用这条，避免重链 Release 的 exe。
+            "label": "build: GUI_WM (debug)",
+            "type": "shell",
+            "command": "scripts\\build-debug.bat",
+            "args": ["-t", "GUI"],
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            // per-exe：同上，Release 版。
+            "label": "build: GUI_WM (release)",
+            "type": "shell",
+            "command": "scripts\\build-release.bat",
+            "args": ["-t", "GUI"],
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            // 只编 GUI 这一个 target 并更新 build\<Config>\，跳过打包与 install。
+            // target 名保持 GUI（产物名才是 GUI_WM），改了就找不到。
+            "label": "build: GUI target only (release)",
+            "type": "shell",
+            "command": "cmake --build --preset release --target GUI",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            "label": "build: GUI target only (debug)",
+            "type": "shell",
+            "command": "cmake --build --preset debug --target GUI",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "group": "build",
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": ["$msCompile"]
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "scripts\\clean.bat",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "sync (gui is chain end)",
+            "type": "shell",
+            "command": "scripts\\sync.bat",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": []
+        },
+        {
+            "label": "update platform",
+            "type": "shell",
+            "command": "scripts\\update_platform.bat",
+            "options": { "cwd": "${workspaceFolder}", "env": { "_SCRIPT_NO_HOLD": "1" } },
+            "presentation": { "reveal": "always", "panel": "shared", "clear": true },
+            "problemMatcher": []
+        }
+    ]
+}

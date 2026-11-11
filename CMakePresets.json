@@ -1,0 +1,30 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": { "major": 3, "minor": 26, "patch": 0 },
+    "configurePresets": [
+        {
+            "name": "win64",
+            "displayName": "Windows x64 (MSVC + Qt5)",
+            "description": "故意不写 generator：CMake 用本机最新版的 Visual Studio。Qt 路径优先取环境变量 QTDIR，没设就用工程内探测的常见位置 —— 换电脑不需要改任何文件。",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_PREFIX_PATH": "$env{QTDIR}"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "release",
+            "configurePreset": "win64",
+            "configuration": "Release",
+            "jobs": 8
+        },
+        {
+            "name": "debug",
+            "configurePreset": "win64",
+            "configuration": "Debug",
+            "jobs": 8
+        }
+    ]
+}

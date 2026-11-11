@@ -1,0 +1,219 @@
+{
+    // ============================================================
+    //  IntelliSense 配置（gui）
+    //
+    //  两个配置，命令面板 "C/C++: Select a Configuration..." 切换。
+    //
+    //  ① "gui (CMake Tools)"  ← 默认。**仓库里零本机路径，同事不用改任何东西。**
+    //     路径、宏、以及"用哪个编译器"全部由 CMake 提供（cpptools 通过
+    //     CMake Tools 扩展读 build\.cmake\api\v1\reply\* 与 CMake 的 kit）。
+    //     CMake 自己会用 vswhere/注册表找到本机的 Visual Studio，所以每台机器
+    //     都不用配编译器 —— 这就是躲开"每人改一行"的答案。
+    //     要求：装 CMake Tools 扩展（仓库 .vscode\extensions.json 已推荐），
+    //           并在本工程 configure 过一次（打开工程时 configureOnOpen 会做；
+    //           clean.bat 删掉 build\ 之后，执行一次 "CMake: Configure"）。
+    //
+    //  ② "gui (static)"       ← 兜底。不依赖任何扩展，路径逐条写死。
+    //     下面这些 include 全部取自本工程构建树的 CMake File API：
+    //         build\.cmake\api\v1\reply\target-GUI-<Config>.json
+    //             compileGroups[].includes[].path / [].defines[].define
+    //     它里面**不写 compilerPath**：系统头（<iostream>/<type_traits>/…）由
+    //     cpptools 自己探测的编译器提供。探测不到时（本机就是这种情况：注册表
+    //     SxS\VS7 里只有 VS2015 残留，cpptools 认不到 D:\VS2019 的 VS2019），
+    //     在你自己的【用户设置】里加一行 —— 机器相关的东西放用户设置，不进仓库：
+    //         "C_Cpp.default.compilerPath": "D:/VS2019/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe"
+    //     或命令面板 "C/C++: Select IntelliSense Configuration..." 手动挑一个。
+    //     说明：C++ IDE 都必须被告知用哪个编译器（Qt Creator 里那叫 Kit），
+    //     无法凭 includePath 绕过；把它放用户设置就能做到"每台机器一次、仓库不动"。
+    // ============================================================
+    "version": 4,
+    "configurations": [
+        {
+            // 默认：全自动，仓库零本机路径
+            "name": "gui (CMake Tools)",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "intelliSenseMode": "windows-msvc-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        },
+        {
+            // 兜底：不装扩展也能用（系统头按文件头说明在用户设置里补编译器）
+            "name": "gui (static)",
+            "intelliSenseMode": "windows-msvc-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            // "compilerPath": ${env:VCToolsInstallDir}bin/Hostx64/x64/cl.exe  （可选）
+
+            "includePath": [
+                // ---- 本工程源码（含手写的 RPC 头）----
+                "${workspaceFolder}/MainProject",
+                "${workspaceFolder}/MainProject/RPCModule/include",
+                "${workspaceFolder}/MainProject/MotionModule",
+                "${workspaceFolder}/MainProject/IOModule",
+
+                // ---- 平台基础库头文件（basiclibrary_output 子模块，28 个组件）----
+                "${workspaceFolder}/basiclibrary_output/include/common/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarappconfig/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarbasicvalue/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarconverter/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarcsv/include",
+                "${workspaceFolder}/basiclibrary_output/include/istardevicerecognize/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarencryption/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarfilesystem/include",
+                "${workspaceFolder}/basiclibrary_output/include/istargf/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarguiappconfig/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarguicomponent/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarguiframework/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarguischema/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarjson/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarlanguage/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarlicense/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarlog/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarmarkdown/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarmqtt/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarmw/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarschema/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarserializer/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarsm/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarthreadpool/include",
+                "${workspaceFolder}/basiclibrary_output/include/istaruistyle/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarxml/include",
+                "${workspaceFolder}/basiclibrary_output/include/istaryaml/include",
+                "${workspaceFolder}/basiclibrary_output/include/istarzmqworker/include",
+
+                // ---- 平台界面库头文件（platform_output 子模块）----
+                "${workspaceFolder}/platform_output/mc/include",
+                "${workspaceFolder}/platform_output/eh/include",
+                "${workspaceFolder}/platform_output/rm/include",
+                "${workspaceFolder}/platform_output/rp/include",
+                "${workspaceFolder}/platform_output/ua/include",
+                "${workspaceFolder}/platform_output/libUIMC/include",
+                "${workspaceFolder}/platform_output/libUIEH/include",
+                "${workspaceFolder}/platform_output/libUIRM/include",
+                "${workspaceFolder}/platform_output/libUIST/include",
+                "${workspaceFolder}/platform_output/libUIRP/include",
+                "${workspaceFolder}/platform_output/libUIUA/include",
+
+                // ---- 生成物：RPC 生成头 + AUTOMOC / AUTOUIC 生成物 ----
+                "${workspaceFolder}/build/gen/mctrl/include",
+                "${workspaceFolder}/build/MainProject/GUI_autogen/include_Debug",
+                "${workspaceFolder}/build/MainProject/GUI_autogen/include_Release",
+
+                // ---- Qt5：环境变量优先，再 4 个标准安装位置（与旧脚本一致）----
+                //      模块清单按 reply 里 target-GUI 实际出现的那 14 组来。
+                "${env:QTDIR}/include",
+                "${env:QTDIR}/include/QtCore",
+                "${env:QTDIR}/include/QtGui",
+                "${env:QTDIR}/include/QtWidgets",
+                "${env:QTDIR}/include/QtNetwork",
+                "${env:QTDIR}/include/QtPrintSupport",
+                "${env:QTDIR}/include/QtANGLE",
+                "${env:QTDIR}/include/QtQml",
+                "${env:QTDIR}/include/QtQuick",
+                "${env:QTDIR}/include/QtWebChannel",
+                "${env:QTDIR}/include/QtWebEngineCore",
+                "${env:QTDIR}/include/QtWebEngineWidgets",
+                "${env:QTDIR}/include/QtPositioning",
+                "${env:QTDIR}/mkspecs/win32-msvc",
+
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtCore",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtGui",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWidgets",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtNetwork",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtPrintSupport",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtANGLE",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtQml",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtQuick",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWebChannel",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWebEngineCore",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWebEngineWidgets",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtPositioning",
+                "D:/Qt/Qt5.12.12/5.12.12/msvc2017_64/mkspecs/win32-msvc",
+
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtCore",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtGui",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWidgets",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtNetwork",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtPrintSupport",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtANGLE",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtQml",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtQuick",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWebChannel",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWebEngineCore",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtWebEngineWidgets",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/include/QtPositioning",
+                "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/mkspecs/win32-msvc",
+
+                "D:/Qt/5.15.2/msvc2019_64/include",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtCore",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtGui",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtWidgets",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtNetwork",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtPrintSupport",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtANGLE",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtQml",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtQuick",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtWebChannel",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtWebEngineCore",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtWebEngineWidgets",
+                "D:/Qt/5.15.2/msvc2019_64/include/QtPositioning",
+                "D:/Qt/5.15.2/msvc2019_64/mkspecs/win32-msvc",
+
+                "C:/Qt/5.15.2/msvc2019_64/include",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtCore",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtGui",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtWidgets",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtNetwork",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtPrintSupport",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtANGLE",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtQml",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtQuick",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtWebChannel",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtWebEngineCore",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtWebEngineWidgets",
+                "C:/Qt/5.15.2/msvc2019_64/include/QtPositioning",
+                "C:/Qt/5.15.2/msvc2019_64/mkspecs/win32-msvc",
+
+                // ---- 最后的兜底（cpptools 的 includePath 支持 ** 递归）----
+                "${workspaceFolder}/**"
+            ],
+
+            // 与构建一致：MSVC 默认的 WIN32/_WINDOWS/UNICODE/_UNICODE，共享模块加的
+            // _HAS_STD_BYTE=0，以及 target GUI 在 Debug 下的编译定义
+            // （GUI_DEBUG 由 CMake 按 CONFIG 定义，Release 换成 QT_NO_DEBUG）。
+            "defines": [
+                "WIN32",
+                "_WINDOWS",
+                "UNICODE",
+                "_UNICODE",
+                "_HAS_STD_BYTE=0",
+                "GUI_DEBUG",
+                "QCUSTOMPLOT_USE_LIBRARY",
+                "QT_CORE_LIB",
+                "QT_GUI_LIB",
+                "QT_NETWORK_LIB",
+                "QT_WIDGETS_LIB",
+                "QT_PRINTSUPPORT_LIB",
+                "QT_QML_LIB",
+                "QT_QUICK_LIB",
+                "QT_WEBCHANNEL_LIB",
+                "QT_WEBENGINECORE_LIB",
+                "QT_WEBENGINEWIDGETS_LIB",
+                "QT_POSITIONING_LIB"
+            ],
+
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/MainProject",
+                    "${workspaceFolder}/basiclibrary_output/include",
+                    "${workspaceFolder}/platform_output",
+                    "${workspaceFolder}/build/gen",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": false
+            }
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CommandsTab</class>
+ <widget class="QWidget" name="CommandsTab">
+  <layout class="QVBoxLayout" name="tabLayout">
+   <property name="leftMargin"><number>0</number></property>
+   <property name="topMargin"><number>0</number></property>
+   <property name="rightMargin"><number>0</number></property>
+   <property name="bottomMargin"><number>0</number></property>
+   <item>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="styleSheet"><string>background-color: transparent;</string></property>
+     <property name="widgetResizable"><bool>true</bool></property>
+     <widget class="QWidget" name="scrollContent">
+      <layout class="QGridLayout" name="scrollLayout">
+       <property name="leftMargin"><number>8</number></property>
+       <property name="topMargin"><number>8</number></property>
+       <property name="rightMargin"><number>8</number></property>
+       <property name="bottomMargin"><number>8</number></property>
+       <property name="spacing"><number>20</number></property>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+</ui>

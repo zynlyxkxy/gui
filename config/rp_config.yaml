@@ -1,0 +1,7 @@
+# RP 报告服务业务配置文件（GUI 侧）
+# GUI 与控制层同机部署、共用同一报告目录（RP-008 ①）：
+#   - 列表查询/生成/导出走 RPC（服务端读写）
+#   - 详情查看由 GUI 本地直接读文件（ReportPathProvider）
+# report_dir 用绝对路径，保证 GUI 与服务端指向同一目录。
+report_dir: D:/1927/1927project/exe/config/rp/Report
+plugin_dir: D:/1927/1927project/exe/config/rp/Plug_In
